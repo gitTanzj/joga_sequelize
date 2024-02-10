@@ -3,21 +3,21 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    queryInterface.createTable('Authors', {
-      id: {
+    return await Promise.all([
+      queryInterface.changeColumn('Authors', 'id', {
         autoIncrement: true,
-        primaryKey: true,
         type: Sequelize.INTEGER,
         allowNull: false
-      },
-      name: {
+      }),
+      queryInterface.changeColumn('Authors', 'name', {
         type: Sequelize.STRING,
         allowNull: false
-      }
-    })
+      })
+    ])
   },
 
   async down (queryInterface, Sequelize) {
+    await queryInterface.dropTable('Authors')
     /**
      * Add reverting commands here.
      *
