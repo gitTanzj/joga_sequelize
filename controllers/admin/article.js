@@ -28,6 +28,24 @@ const createArticle = (req, res) => {
     })
 }
 
+const updateArticle = (req, res) => {
+    console.log(req.body)
+    const updatedArticle = models.Article.update(req.body, {
+        where: {
+            id: req.params.id
+        }
+        }
+    )
+    .then(article => {
+        console.log(article)
+        return res.status(201).json({message: 'Article updated'})
+    })
+    .catch(error => {
+        return res.status(500).send(error.message)
+    })
+}
+
 module.exports = {
-    createArticle
+    createArticle,
+    updateArticle
 }
